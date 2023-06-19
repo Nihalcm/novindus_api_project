@@ -17,7 +17,7 @@ class Auth with ChangeNotifier {
   String? _userEmail;
   DateTime? _expiryDate;
   Timer? _authTimer;
-  Driver? drivers;
+  Drivers? drivers;
   Buses? buses;
   bool _isLoading = false;
 
@@ -57,7 +57,7 @@ class Auth with ChangeNotifier {
   }
 
 
-  Future<Driver> getDriver() async {
+  Future<Drivers> getDriver() async {
     var client = http.Client();
     var uri = '$MainUrl/DriverApi';
     print(uri);
@@ -70,7 +70,7 @@ class Auth with ChangeNotifier {
         },);
       if (response.statusCode == 200) {
         var json = response.body;
-        return driverFromJson(json);
+        return driversFromJson(json);
       } else {
         // Handle other status codes or specific error cases
         throw Exception('Failed to fetch cat data');
@@ -110,7 +110,7 @@ class Auth with ChangeNotifier {
 
   Future<Buses> getbus() async {
     var client = http.Client();
-    var uri ='$MainUrl/BusListApi';;
+    var uri ='$MainUrl/BusListApi';
     print(uri);
     var url = Uri.parse(uri);
     try {
@@ -169,10 +169,11 @@ class Auth with ChangeNotifier {
 
 
 
-  Future<DriverElement> createDriver(DriverElement newDriver) async {
+
+
+  Future<DriverList> createDriver(DriverList newDriver) async {
     var client = http.Client();
     var uri = "$MainUrl/DriverApi";
-    print(uri);
     var url = Uri.parse(uri);
     try {
       var response = await client.post(
@@ -185,7 +186,9 @@ class Auth with ChangeNotifier {
       );
       if (response.statusCode == 200) {
         var json = response.body;
+        print ("added");
         return driverlistFromJson(json);
+
       } else {
         print('Failed to create driver');
         throw Exception('Failed to create driver');
@@ -197,41 +200,31 @@ class Auth with ChangeNotifier {
     }
   }
 
-
-  Future<void> deleteDriver(String driverId) async {
-    var uri = "$MainUrl/DriverApi";
-
-    final requestData = {
-      'driver_id': driverId,
-    };
-
-    final response = await http.delete(
-      Uri.parse(uri),
-      body: json.encode(requestData),
-      headers: {
-        'Authorization': 'Bearer $_token',
-        'Content-Type': 'application/json',
-      },
-    );
-
-    if (response.statusCode == 200) {
-      final deleteDrivers = deleteDriversFromJson(response.body);
-      if (deleteDrivers.status) {
-        print('Driver deleted successfully');
-        print(deleteDrivers.status);
-      } else {
-        if (deleteDrivers.error != null &&
-            deleteDrivers.error!.driverId != null) {
-          print('Failed to delete driver. Error: ${deleteDrivers.error!.driverId
-              .join(', ')}');
-        } else {
-          print('Failed to delete driver. Unknown error occurred.');
-        }
-      }
-    } else {
-      print('Failed to delete driver. Error code: ${response.statusCode}');
-    }
-  }
+  // Future<void> deleteDriver(String driverId) async {
+  //   var uri = "$MainUrl/DriverApi";
+  //
+  //   final requestData = {
+  //     'driver_id': driverId,
+  //   };
+  //
+  //   final response = await http.delete(
+  //     Uri.parse(uri),
+  //     body: json.encode(requestData),
+  //     headers: {
+  //       'Authorization': 'Bearer $_token',
+  //       'Content-Type': 'application/json',
+  //     },
+  //   );
+  //
+  //   if (response.statusCode == 200) {
+  //     final deleteDrivers = deleteDriversFromJson(response.body);
+  //       print('Driver deleted successfully');
+  //       print(deleteDrivers.toJson);
+  //
+  //   } else {
+  //     print('Failed to delete driver. Error code: ${response.statusCode}');
+  //   }
+  // }
 
 
 

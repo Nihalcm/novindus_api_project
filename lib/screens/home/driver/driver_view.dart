@@ -172,7 +172,7 @@ class _DriverViewState extends State<DriverView> {
                                                     Spacer(),
                                                     InkWell(
                                                       onTap: () {
-                                                        Provider.of<Auth>(context,listen: false).deleteDriver(widget.driverId.toString()).then((value) => Navigator.pop(context)).then((value) => Navigator.pop(context));
+                                                        // Provider.of<Auth>(context,listen: false).deleteDriver(widget.driverId.toString()).then((value) => Navigator.pop(context)).then((value) => Navigator.pop(context));
                                                       },
                                                       child: Text(
                                                         'Confirm',

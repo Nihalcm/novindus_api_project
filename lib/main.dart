@@ -3,7 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:novindus_api_project/screens/home/home_page.dart';
 import 'package:novindus_api_project/screens/login/login.dart';
-import 'package:novindus_api_project/screens/welcome.dart';
+
+import 'package:novindus_api_project/screens/welcome/welcome.dart';
 import 'package:novindus_api_project/services/provider/provider.dart';
 import 'package:provider/provider.dart';
 

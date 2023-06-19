@@ -83,7 +83,7 @@ class _AllDriverState extends State<AllDriver> {
               Row(
                 children: [
                   Text(
-                    '${drivers?.drivers.length ?? 0} Drivers Found',
+                    '${drivers!.driverList.length ?? 0} Drivers Found',
                     style: TextStyle(
                       color: Color(0xFF6B6B6B),
                       fontSize: 15,
@@ -100,11 +100,11 @@ class _AllDriverState extends State<AllDriver> {
                   height: 20,
                 ),
                 physics: NeverScrollableScrollPhysics(),
-                itemCount: drivers?.drivers.length ?? 0,
+                itemCount: drivers?.driverList.length ?? 0,
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
-                  final driver = drivers?.drivers[index];
+                  final driver = drivers?.driverList[index];
                   print(drivers);
                   return Container(
                     height: 70,

@@ -20,8 +20,9 @@ class _AddDriverState extends State<AddDriver> {
   TextEditingController namecontroller = TextEditingController();
   TextEditingController licenseController = TextEditingController();
   TextEditingController phonecontroller = TextEditingController();
-
   Auth auth=Auth();
+
+
   void addDriver(BuildContext context) async {
     String name = namecontroller.text ?? '';
     String licenseNumber = licenseController.text ?? '';
@@ -50,13 +51,14 @@ class _AddDriverState extends State<AddDriver> {
     }
 
     try {
-      DriverElement newDriver = DriverElement(
+      DriverList newDriver = DriverList(
+        id: 0,
         name: name,
         mobile: phone,
         licenseNo: licenseNumber,
       );
 
-       Provider.of<Auth>(context, listen: false).createDriver(newDriver);
+      Provider.of<Auth>(context, listen: false).createDriver(newDriver);
 
       showDialog(
         context: context,
@@ -107,6 +109,7 @@ class _AddDriverState extends State<AddDriver> {
 
 
 
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -143,7 +146,8 @@ class _AddDriverState extends State<AddDriver> {
         padding: const EdgeInsets.all(20.0),
         child:
         LargeButton(width: size.width, ontap: () {
-        addDriver(context);
+          // Provider.of<Auth>(context,listen: false).addDriverAPI("John Doe", "1234567890", "ABC123XYZ");
+          addDriver(context);
         }, height: 58, title: "Save"),
       ),
     );
